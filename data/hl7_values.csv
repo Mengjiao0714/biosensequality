@@ -6,7 +6,7 @@ PV1-14.1;Admit_Source
 OBX-2, OBX-3, OBX-5;Age_Reported
 OBX-2, OBX-3, OBX-6;Age_Units_Reported
 PID-7.1;Birth_Date_Time
-PID-11.9, PID-12.1;C_Patient_County
+PID-11.9, PID-12.1;Patient_County
 OBX-2, OBX-3, OBX-5.1;Chief_Complaint_Code
 OBX-2, OBX-3, OBX-5.1;Chief_Complaint_Text
 OBX-2, OBX-3, OBX-5;Clinical_Impression
