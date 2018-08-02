@@ -1,3 +1,5 @@
+## Show each unique Triage_Notes for each visit (C_BioSense_ID) and each Medical_Record_Number
+## and the frequency for each Triage_Notes.
 triage_notes_count<-function(data){
   triage_notes=data%>%
     select(Triage_Notes,C_BioSense_ID,Medical_Record_Number)%>%
