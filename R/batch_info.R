@@ -4,7 +4,7 @@ batch_info<-function(data){
   Batch_Per_Day=data%>%
     group_by(Feed_Name,Arrived_Date)%>%
     summarise(N_Batch=n_distinct(File_Name))
-
+  ## compute the time between batches in hours
   Time_Bet_Batch=data%>%
     group_by(Feed_Name,File_Name)%>%
     select(Feed_Name,File_Name, Arrived_Date_Time,Arrived_Date)%>%
