@@ -49,19 +49,22 @@ write_facility <- function(username, password, table, mft, raw, start, end, faci
     select(-c(C_Biosense_Facility_ID)) %>%
     gather(Field, Value, 4:ncol(.)) %>%
     spread(Measure, Value) %>%
-    right_join(hl7_values, ., by = "Field")
+    right_join(hl7_values, ., by = "Field")%>%
+    select(-c(Feed_Name,Sending_Application))
   # get facility-level state summary of optional nulls
   opt_nulls <- get_opt_nulls(data) %>%
     select(-c(C_Biosense_Facility_ID)) %>%
     gather(Field, Value, 4:ncol(.)) %>%
     spread(Measure, Value) %>%
-    right_join(hl7_values, ., by = "Field")
+    right_join(hl7_values, ., by = "Field")%>%
+    select(-c(Feed_Name,Sending_Application))
   # get facility-level state summary of invalids
   invalids <- get_all_invalids(data) %>%
     select(-c(C_Biosense_Facility_ID)) %>%
     gather(Field, Value, 4:ncol(.)) %>%
     spread(Measure, Value) %>%
-    right_join(hl7_values, ., by = "Field")
+    right_join(hl7_values, ., by = "Field")%>%
+    select(-c(Feed_Name,Sending_Application))
 
   # getting first and last visit date times
   vmin <- min(as.character(data$C_Visit_Date_Time))
