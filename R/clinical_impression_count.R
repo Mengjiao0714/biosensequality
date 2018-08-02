@@ -1,3 +1,5 @@
+## Show each unique Clinical_Impression for each visit (C_BioSense_ID) and each Medical_Record_Number
+## and the frequency for each Clinical_Impression.
 clinical_impression_count<-function(data){
   clinical_impression=data%>%
     select(Clinical_Impression,C_BioSense_ID,Medical_Record_Number)%>%
