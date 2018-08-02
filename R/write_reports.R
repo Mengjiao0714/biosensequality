@@ -205,7 +205,7 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
     writeDataTable(wb,sheet1,Diagnosis,startCol=1,startRow=nrow(facility_table)+17, colNames=TRUE,rowNames=FALSE,firstColumn=TRUE)
     writeDataTable(wb,sheet1,Trigger,startCol=1,startRow=nrow(facility_table)+22, colNames=TRUE,rowNames=FALSE,firstColumn=TRUE)
       
-    setColWidths(wb, sheet1, 1:8, "auto")
+    setColWidths(wb, sheet1, 1:9, "auto")
     ## sheet 2: required nulls
     sheet2 <- addWorksheet(wb, "Required Nulls") # initialize sheet
      ##making data for it
