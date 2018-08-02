@@ -366,12 +366,12 @@ write_facility <- function(username, password, table, mft, raw, start, end, faci
       wb <- createWorkbook()
       # sheet 1: invalids
       sheet1 <- addWorksheet(wb, "Invalids")
-      writeDataTable(wb, sheet1, inv_examples, firstColumn=TRUE, bandedRows=TRUE)
+      writeDataTable(wb, sheet1, inv_examples, firstColumn=TRUE,headerStyle=hs, bandedRows=TRUE)
       setColWidths(wb, sheet1, 1:ncol(inv_examples), "auto")
       freezePane(wb, sheet1, firstActiveRow=2, firstActiveCol=4)
       # sheet2: nulls
       sheet2 <- addWorksheet(wb, "Nulls")
-      writeDataTable(wb, sheet2, null_examples, firstColumn=TRUE, bandedRows=TRUE)
+      writeDataTable(wb, sheet2, null_examples, firstColumn=TRUE,headerStyle=hs, bandedRows=TRUE)
       setColWidths(wb, sheet2, 1:ncol(null_examples), "auto")
       freezePane(wb, sheet2, firstActiveRow=2, firstActiveCol=3)
       # write sheet
