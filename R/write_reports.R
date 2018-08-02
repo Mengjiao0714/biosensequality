@@ -344,21 +344,15 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
     
     ## sheet 10
     sheet10 <- addWorksheet(wb,"Chief_Complaint_Check")
-    subdata=data%>%
-            filter(C_Biosense_Facility_ID==i)
+   
+    Chief_Complaint_Text=chief_complaint_text_count(data)
+    Admit_Reason=admit_reason_description_count(data)
+    Triage_Notes=triage_notes_count(data)
+    Clinical_Impression=clinical_impression_count(data)
+    output=bind_rows(Chief_Complaint_Text,Admit_Reason,Triage_Notes,Clinical_Impression) ## remove the column name
     
-    Chief_Complaint_Text=chief_complaint_text_count(subdata)
-    Admit_Reason=admit_reason_description_count(subdata)
-    Triage_Notes=triage_notes_count(subdata)
-    Clinical_Impression=clinical_impression_count(subdata)
-    
-    writeDataTable(wb,sheet10,Chief_Complaint_Text,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE, bandedRows=TRUE)
-    writeDataTable(wb,sheet10,Admit_Reason,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE,
-                   bandedRows=TRUE,startRow=nrow(Chief_Complaint_Text)+4)
-    writeDataTable(wb,sheet10,Triage_Notes,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE, bandedRows=TRUE,
-                   startRow=nrow(Chief_Complaint_Text)+nrow(Admit_Reason)+6)
-    writeDataTable(wb,sheet10,Clinical_Impression,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE, bandedRows=TRUE,
-                   startRow=nrow(Chief_Complaint_Text)+nrow(Admit_Reason)+nrow(Triage_Notes)+8)
+    writeDataTable(wb,sheet10,output,colNames=TRUE,rowNames=FALSE,headerStyle=hs, firstColumn=TRUE, bandedRows=TRUE)
+
     setColWidths(wb,sheet10,1:5,"auto")
 
    # write to file
