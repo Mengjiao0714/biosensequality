@@ -4,7 +4,7 @@
 #' second, a frame that contains facility-level summaries for counts and percentages of death invalids.
 #' 
 #' If Discharge_Disposition says the patient died, they should report a Death_Indicator AND Death_Date_Time. 
-#' If they do not, this function counts that as invalid. If Death_Indicator is returned, then Death_Date_Time should be reported. 
+#' If they do not, this function counts that as invalid. If Death_Indicator (YES, yes, or Yes) is returned, then Death_Date_Time should be reported. 
 #' If they do not, this function counts that as invalid. Death_Indicator should be reported if a Death_Date_Time is reported; 
 #' if it is not, this function counts that as invalid.
 #' 
