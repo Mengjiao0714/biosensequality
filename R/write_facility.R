@@ -99,30 +99,35 @@ write_facility <- function(username, password, table, mft, raw, start, end, faci
 
    Lag<-data.frame(
       HL7=c("EVN-2.1","MSH-7.1,EVN-2.1","MSH-7.1",""),
-      Lag_Between=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
+      Lag_Name=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
+      Lag_Between=c("Record_Date_Time-Visit_Date_Time","Message_Date_Time-Record_Date_Time","Arrival_Date_Time-Message_Date_Time","Arrival_Date_Time-Visit_Date_Time"),
       Average_Lag_hours=t(va_lag(data)[-1])
       )
     Early_Lag<-data.frame(
       HL7=c("EVN-2.1","MSH-7.1,EVN-2.1","MSH-7.1",""),
-      Lag_Between=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
+     Lag_Name=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
+      Lag_Between=c("Record_Date_Time-Visit_Date_Time","Message_Date_Time-Record_Date_Time","Arrival_Date_Time-Message_Date_Time","Arrival_Date_Time-Visit_Date_Time"),
       Early_Lag_hours= t(early_lag(data)[-1])
       )
     
     Chief_Complaint<-data.frame(
       HL7=c("EVN-2.1","MSH-7.1,EVN-2.1","MSH-7.1",""),
-      Lag_Between=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
+      Lag_Name=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
+      Lag_Between=c("Record_Date_Time-Visit_Date_Time","Message_Date_Time-Record_Date_Time","Arrival_Date_Time-Message_Date_Time","Arrival_Date_Time-Visit_Date_Time"),
       Earliest_Non_NA_Chief_Complaint_Lag=t(lag_chief_complaint(data)[-1])
       )
     
      Diagnosis<-data.frame(
       HL7=c("EVN-2.1","MSH-7.1,EVN-2.1","MSH-7.1",""),
-      Lag_Between=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
+      Lag_Name=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
+      Lag_Between=c("Record_Date_Time-Visit_Date_Time","Message_Date_Time-Record_Date_Time","Arrival_Date_Time-Message_Date_Time","Arrival_Date_Time-Visit_Date_Time"),
       Earliest_Non_NA_Diagnosis_Code_Lag=t(lag_diagnosis(data)[-1])
       )
     
     Trigger<-data.frame(
       HL7=c("EVN-2.1","MSH-7.1,EVN-2.1","MSH-7.1",""),
-      Lag_Between=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
+      Lag_Name=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
+      Lag_Between=c("Record_Date_Time-Visit_Date_Time","Message_Date_Time-Record_Date_Time","Arrival_Date_Time-Message_Date_Time","Arrival_Date_Time-Visit_Date_Time"),
       Trigger_Event_A01=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A01",][-1]),
       Trigger_Event_A03=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A03",][-1]),
       Trigger_Event_A04=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A04",][-1]),
