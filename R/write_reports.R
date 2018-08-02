@@ -281,13 +281,13 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
     sheet7 <- addWorksheet(wb, "Patient Location")
     Country=country_perc(subdata)
     State=state_perc(subdata)
-    City=city_perc(subdata)
     County=county_perc(subdata)
+    City=city_perc(subdata)
     
     writeDataTable(wb, sheet7, Country,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE, bandedRows=TRUE)
     writeDataTable(wb, sheet7, State,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE,startRow=nrow(Country)+2, bandedRows=TRUE)
-    writeDataTable(wb, sheet7, City,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE,startRow=nrow(Country)+nrow(State)+3, bandedRows=TRUE)
-    writeDataTable(wb, sheet7, County,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE,startRow=nrow(Country)+nrow(State)+nrow(City)+4, bandedRows=TRUE)
+    writeDataTable(wb, sheet7, County,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE,startRow=nrow(Country)+nrow(State)+3, bandedRows=TRUE)
+    writeDataTable(wb, sheet7, City,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE,startRow=nrow(Country)+nrow(State)+nrow(County)+4, bandedRows=TRUE)
     setColWidths(wb, sheet7, 1:3, "auto")
     
     ## sheet 8
