@@ -267,14 +267,10 @@ write_facility <- function(username, password, table, mft, raw, start, end, faci
     Admit_Reason=admit_reason_description_count(data)
     Triage_Notes=triage_notes_count(data)
     Clinical_Impression=clinical_impression_count(data)
+    output=bind_rows(Chief_Complaint_Text,Admit_Reason,Triage_Notes,Clinical_Impression) ## remove the column name
     
-    writeDataTable(wb,sheet10,Chief_Complaint_Text,colNames=TRUE,rowNames=FALSE,headerStyle=hs, firstColumn=TRUE, bandedRows=TRUE)
-    writeDataTable(wb,sheet10,Admit_Reason,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE, headerStyle=hs,
-                   bandedRows=TRUE,startRow=nrow(Chief_Complaint_Text)+4)
-    writeDataTable(wb,sheet10,Triage_Notes,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE, bandedRows=TRUE, headerStyle=hs,
-                   startRow=nrow(Chief_Complaint_Text)+nrow(Admit_Reason)+6)
-    writeDataTable(wb,sheet10,Clinical_Impression,colNames=TRUE,rowNames=FALSE, firstColumn=TRUE, bandedRows=TRUE, headerStyle=hs,
-                   startRow=nrow(Chief_Complaint_Text)+nrow(Admit_Reason)+nrow(Triage_Notes)+8)
+    writeDataTable(wb,sheet10,output,colNames=TRUE,rowNames=FALSE,headerStyle=hs, firstColumn=TRUE, bandedRows=TRUE)
+
     setColWidths(wb,sheet10,1:5,"auto")
 
   
