@@ -141,7 +141,7 @@ write_facility <- function(username, password, table, mft, raw, start, end, faci
     writeDataTable(wb,sheet1,Chief_Complaint,startCol=1,startRow=nrow(facility_table)+12, headerStyle=hs, colNames=TRUE,rowNames=FALSE,firstColumn=TRUE)
     writeDataTable(wb,sheet1,Diagnosis,startCol=1,startRow=nrow(facility_table)+17, headerStyle=hs,colNames=TRUE,rowNames=FALSE,firstColumn=TRUE)
     writeDataTable(wb,sheet1,Trigger,startCol=1,startRow=nrow(facility_table)+22, headerStyle=hs,colNames=TRUE,rowNames=FALSE,firstColumn=TRUE)
-   setColWidths(wb, sheet1, 1:6, "auto")
+   setColWidths(wb, sheet1, 1:7, "auto")
   
   # sheet 2: required nulls
   sheet2 <- addWorksheet(wb, "Required Nulls") # initialize sheet
