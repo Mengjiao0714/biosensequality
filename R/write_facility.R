@@ -131,11 +131,11 @@ write_facility <- function(username, password, table, mft, raw, start, end, faci
       HL7=c("EVN-2.1","MSH-7.1,EVN-2.1","MSH-7.1",""),
       Lag_Name=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
       Lag_Between=c("Record_Date_Time-Visit_Date_Time","Message_Date_Time-Record_Date_Time","Arrival_Date_Time-Message_Date_Time","Arrival_Date_Time-Visit_Date_Time"),
-      Trigger_Event_A01=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A01",][-1]),
-      Trigger_Event_A03=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A03",][-1]),
-      Trigger_Event_A04=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A04",][-1]),
-      Trigger_Event_A06=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A06",][-1]),
-      Trigger_Event_A08=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A08",][-1])
+      A01_Trigger_Event=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A01",][-1]),
+      A03_Trigger_Event=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A03",][-1]),
+      A04_Trigger_Event=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A04",][-1]),
+      A06_Trigger_Event=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A06",][-1]),
+      A08_Trigger_Event=t(lag_by_trigger(data)[lag_by_trigger(data)$Trigger_Event=="A08",][-1])
       )
   
     writeDataTable(wb, sheet1,facility_table,firstColumn=TRUE, headerStyle=hs, bandedRows=TRUE)
