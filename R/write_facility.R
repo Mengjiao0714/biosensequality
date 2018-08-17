@@ -276,8 +276,17 @@ write_facility <- function(username, password, table, mft, raw, start, end, faci
 
     setColWidths(wb,sheet10,1:5,"auto")
 
-  
-  
+   
+   ## sheet 11 check Recorded_Date_Time and C_Visit_Date_time
+    sheet11<- addWorksheet(wb, "Invalid Date_Time")
+    check_date=date_time_invalid(data)[[2]]%>%
+                    gather(key, value, 2:ncol(.))%>%
+                    separate(key, c("Field","Measure"), "\\.")%>%
+                    spread(Measure, value)%>%
+                    select(-C_Biosense_Facility_ID)
+    
+    writeDataTable(wb,sheet11,check_date,colNames=TRUE,rowNames=FALSE,headerStyle=hs, firstColumn=TRUE, bandedRows=TRUE)
+    setColWidths(wb,sheet11,1:3,"auto")
   
   
   # write to file
@@ -312,7 +321,9 @@ write_facility <- function(username, password, table, mft, raw, start, end, faci
                              state_invalid(data)[[1]], # 20
                              temperature_invalid(data)[[1]], # 21
                              weight_invalid(data)[[1]], # 22
-                             zip_invalid(data)[[1]]) # 22
+                             zip_invalid(data)[[1]], # 23
+                             diagnosis_code_invalid(data)[[1]], #24
+                             date_time_invalid(data)[[1]]) #25
 
       inv_examples <- examples_invalids(facility, invalid_examples) # get examples of invalids from this facility
       null_examples <- examples_nulls(facility, data) # get examples of nulls from this faciltiy
