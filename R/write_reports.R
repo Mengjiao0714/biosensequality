@@ -347,16 +347,27 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
     ## sheet 10
     sheet10 <- addWorksheet(wb,"Chief_Complaint_Check")
    
-    Chief_Complaint_Text=chief_complaint_text_count(data)
-    Admit_Reason=admit_reason_description_count(data)
-    Triage_Notes=triage_notes_count(data)
-    Clinical_Impression=clinical_impression_count(data)
+    Chief_Complaint_Text=chief_complaint_text_count(subdata)
+    Admit_Reason=admit_reason_description_count(subdata)
+    Triage_Notes=triage_notes_count(subdata)
+    Clinical_Impression=clinical_impression_count(subdata)
     output=bind_rows(Chief_Complaint_Text,Admit_Reason,Triage_Notes,Clinical_Impression) ## remove the column name
     
     writeDataTable(wb,sheet10,output,colNames=TRUE,rowNames=FALSE,headerStyle=hs, firstColumn=TRUE, bandedRows=TRUE)
 
     setColWidths(wb,sheet10,1:5,"auto")
-
+    
+    
+    ## sheet 11 check Recorded_Date_Time and C_Visit_Date_time
+    sheet11<- addWorksheet(wb, "Invalid Date_Time")
+    check_date=date_time_invalid(subdata)[[2]]%>%
+                    gather(key, value, 2:ncol(.))%>%
+                    separate(key, c("Field","Measure"), "\\.")%>%
+                    spread(Measure, value)%>%
+                    select(-C_Biosense_Facility_ID)
+    
+    writeDataTable(wb,sheet11,check_date,colNames=TRUE,rowNames=FALSE,headerStyle=hs, firstColumn=TRUE, bandedRows=TRUE)
+    setColWidths(wb,sheet11,1:3,"auto")
    # write to file
     filename <- str_replace_all(fname, "[^[a-zA-z\\s0-9]]", "") %>% # get rid of punctuation from faciltiy name
       str_replace_all("[\\s]", "_") # replace spaces with underscores
@@ -393,7 +404,9 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
                              state_invalid(data)[[1]], # 20
                              temperature_invalid(data)[[1]], # 21
                              weight_invalid(data)[[1]], # 22
-                             zip_invalid(data)[[1]]) # 23
+                             zip_invalid(data)[[1]], # 23
+                             diagnosis_code_invalid(data)[[1]], #24
+                             date_time_invalid(data)[[1]])  #25
     
     for (i in data$C_Biosense_Facility_ID[!duplicated(data$C_Biosense_Facility_ID)]) { # for every unique facility id
       inv_examples <- examples_invalids(i, invalid_examples) # get examples of invalids from this facility
