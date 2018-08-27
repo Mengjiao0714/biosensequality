@@ -1,10 +1,13 @@
+## check the validity of diagnosis code
+## if the diagnosis code is non NULL, and there are only numbers (no letters), it is defined as invalid
 diagnosis_code_invalid<-function(data){
   snomed<-data%>%
     select(C_Biosense_Facility_ID, C_BioSense_ID,Diagnosis_Code)
-  
+  ## remove the semicolon ";"
   snomed$Diagnosis_Code_nosemi<-gsub(";","",snomed$Diagnosis_Code)
+  ## pattern match: if any letters in diagnosis code, then TRUE
   snomed$letters<-grepl("[a-z]",snomed$Diagnosis_Code_nosemi,ignore.case = TRUE)
-  
+  ## compute frequency and percentage of invalid diagnosis code
   diagnosis_summary=snomed%>%
     filter(is.na(Diagnosis_Code_nosemi)==FALSE)%>%
     group_by(C_Biosense_Facility_ID) %>%
