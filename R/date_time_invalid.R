@@ -1,3 +1,9 @@
+## check the invalidness of the format of all _data_time related varialbes.
+## The valid data_time format should be YYYY-mm-dd HH:MM:SS. IsDate function will check if a certain input satisty this format.
+## check_** are categorical variables with 3 levels: TRUE if it is the valid format of YYYY-mm-dd HH:MM:SS, "Missing" if it is empty/NULL,
+## and FALSE if it is non-empty but not the valid format of YYYY-mm-dd HH:MM:SS.
+## The output of date_time_invalid() function is similar as other _invalid functions: a list of two (examples and summary)
+
 date_time_invalid<-function(data){
   IsDate<-function(mydate,data.format="%Y-%m-%d %H:%M:%S"){
     tryCatch(!is.na(as.Date(mydate,data.format)),
