@@ -1,3 +1,4 @@
+## similar as va_lag.R, but we compute the time difference for the earliest Recorded_Date_Time
 early_lag <- function(data) {
   LagTime=data %>%
     select(C_Biosense_Facility_ID, C_BioSense_ID, Arrived_Date_Time, C_Visit_Date_Time, Message_Date_Time, Recorded_Date_Time)%>% 
