@@ -1,17 +1,8 @@
-#' Visit-Arrival Lag
-#'
-#' @description 
-#' Calculates the average time lag between when: a patient arrives and the first record for their visit is received by the NSSP BioSense Platform.
-#' A summary is returned at the facility level.
-#' 
-#' @param data The raw data from BioSense on which you will do these summaries.
-#' @param names A table of Facility_Name and C_Biosense_Facility_ID which taken from the MFT using the `pull_data` function.
-#' @param offset The number of hours you wish to offset Arrived_Date_Time (which is in UTC). The offset value is how far off your local time zone is from UTC. 
-#' For example, the Central Time Zone would set this to 5 or 6, depending on if it is daylight savings or not. This value should be an integer. 
-#' @return A data frame with three columns: facility name, facility ID, and average lag between patient visit and first record arrival.
-#' @import dplyr
-#' @import tidyr
-#' @export
+ ## this function computes the average time difference between Record and Visit, Message and Record, Arrival and Message, Arrival and Visit
+ ## for each message.
+ ## Record: the time that the first message is entered into system; Message: the time that the first message was sent;
+ ## Arrival: the time that the first message arraived at CDC; Visit: patient visit time
+ 
 va_lag <- function(data) {
     LagTime=data %>% 
       select(C_Biosense_Facility_ID, Arrived_Date_Time, C_Visit_Date_Time, Message_Date_Time, Recorded_Date_Time)%>% 
