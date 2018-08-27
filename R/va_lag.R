@@ -1,5 +1,5 @@
  ## this function computes the average time difference between Record and Visit, Message and Record, Arrival and Message, Arrival and Visit
- ## for each message.
+ ## for each visit.
  ## Record: the time that the first message is entered into system; Message: the time that the first message was sent;
  ## Arrival: the time that the first message arraived at CDC; Visit: patient visit time
  
