@@ -156,8 +156,11 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
                                                   ))) %>% 
                      right_join(hl7_values, ., by="Field"))
     
+    ## Record: the time that the first message is entered into system; Message: the time that the first message was sent;
+    ## Arrival: the time that the first message arraived at CDC; Visit: patient visit time
     
-    
+    ## compute the average time difference between Record and Visit, Message and Record, Arrival and Message, Arrival and Visit
+    ## for each visit.
     Lag<-data.frame(
       HL7=c("EVN-2.1","MSH-7.1,EVN-2.1","MSH-7.1",""),
        Lag_Name=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
@@ -165,6 +168,8 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
       Average_Lag_hours=t(va_lag(subdata)[-1]),
       State_wide_Average= state_lag
       )
+    
+    ##Time difference for the earliest Recorded_Date_Time
     Early_Lag<-data.frame(
       HL7=c("EVN-2.1","MSH-7.1,EVN-2.1","MSH-7.1",""),
        Lag_Name=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
@@ -173,6 +178,7 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
       State_wide_Average=state_early_lag
       )
     
+    ## Time diference for the earliest recorded non NA C_Chief_Complaints
     Chief_Complaint<-data.frame(
       HL7=c("EVN-2.1","MSH-7.1,EVN-2.1","MSH-7.1",""),
       Lag_Name=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
@@ -180,7 +186,7 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
       Earliest_Non_NA_Chief_Complaint_Lag=t(lag_chief_complaint(subdata)[-1]),
       State_wide_Average= state_chief_complaint
       )
-    
+    ## Time difference for the earliest recorded non NA Diagnosis_Code
      Diagnosis<-data.frame(
       HL7=c("EVN-2.1","MSH-7.1,EVN-2.1","MSH-7.1",""),
        Lag_Name=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
@@ -188,7 +194,7 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
       Earliest_Non_NA_Diagnosis_Code_Lag=t(lag_diagnosis(subdata)[-1]),
       State_wide_Average= state_diagnosis
       )
-    
+     ## Time difference for various Trigger_Event
     Trigger<-data.frame(
       HL7=c("EVN-2.1","MSH-7.1,EVN-2.1","MSH-7.1",""),
        Lag_Name=c("Record_Visit","Message_Record","Arrival_Message","Arrival_Visit"),
@@ -247,8 +253,6 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
     ## batch information
     sheet5 <- addWorksheet(wb, "Batch_Information")
     ##compute the average number of messages per batch for each Feed_Name
-
-    
     Batch_Mean=subdata%>%
     select(Feed_Name,C_Biosense_Facility_ID)%>%
     merge(mean_message_per_batch(batchdata),.,by="Feed_Name")%>%
@@ -266,7 +270,7 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
     
     ## sheet 6
     sheet6 <- addWorksheet(wb, "Race and Ethnicity")
-    
+    ## the frequency and percentage of all visits for race and ethnicity
     Race_Description=race_description_perc(subdata)
     Race_Code=race_code_perc(subdata)
     
@@ -281,6 +285,7 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
     
     ## sheet 7
     sheet7 <- addWorksheet(wb, "Patient Location")
+    ## the frequency and percentage of patients' location: country, state, city and county.
     Country=country_perc(subdata)
     State=state_perc(subdata)
     County=county_perc(subdata)
@@ -294,6 +299,8 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
     
     ## sheet 8
     sheet8 <- addWorksheet(wb,"Other Patient Information")
+    ## the frequency and percentage of insurance company, patient class, age group, and trigger event and if trigger event is A03
+    ## also check for smoking code, smoking description, and discharge disposition
     Insurance=insurance_company_id_perc(subdata)
     Patient_Class=patient_class_perc(subdata)
     Age_Group=age_group_perc(subdata)
@@ -330,6 +337,7 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
     
     ## sheet 9
     sheet9 <- addWorksheet(wb,"Facility and Diagnosis")
+    ## frequency and percentage of facility description/code, and diagnosis type/code
     Facility_Desc=facility_type_description_perc(subdata)
     Facility_Code=facility_type_code_perc(subdata)
     Diagnosis_Type=diagnosis_type_perc(subdata)
@@ -346,7 +354,7 @@ write_reports <- function(username, password, table, mft,raw, start, end, direct
     
     ## sheet 10
     sheet10 <- addWorksheet(wb,"Chief_Complaint_Check")
-   
+    ## frequency and percentage for each Chief_Complaint_Text, Admit_Reason_Description, Triage_Notes, and Clinical_Impression
     Chief_Complaint_Text=chief_complaint_text_count(subdata)
     Admit_Reason=admit_reason_description_count(subdata)
     Triage_Notes=triage_notes_count(subdata)
