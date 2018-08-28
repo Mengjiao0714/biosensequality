@@ -1,6 +1,7 @@
 ##Frequency of occurrence in data - what is actually occurring in the data and
 ##how often each distinct entry is occurring and percentage of all visits each entry
 ##accounts for.
+
 ##Trigger_Event
 
 trigger_event_perc<-function(data){
