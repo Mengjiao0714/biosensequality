@@ -31,27 +31,9 @@ Columns A and B have the facility's name and ID number, respectively (I changed 
 
 Invalids were determined using the [PHIN VADS value sets](https://phinvads.cdc.gov/vads/ViewView.action?name=Syndromic%20Surveillance), but also sometimes relied on our own judgment. For instance, we considered certain fields like age and temperature to be invalid if age and temperature units are missing. The precise details of these can be found by looking at the documentation for the functions ending with  `_invalid`.  
 
-Here is an example of what the invalids tab looks like:  
-
-<br>
-<div style="width:1000px">
-![](http://i.imgur.com/1DVWV3D.png)
-</div>
-<br>
 
 The layout is the same as the null tabs, except now it it displays when fields are invalid. You may see that there are some gaps: This is to be expected. I exclude all nulls (that is, nulls are *not* considered invalid, since there is already a function that measures nulls), so if *all* examples of this field was null, then there is nothing to count! This means a denominator of zero for the percentages; a blank is just put here.  
 
-### Visit-Arrival Lag
-
-For each facility, this tab displays the average time between (a) when the patient first visited the facility and (b) when the first record for this visit arrived at the BioSense Platform. here is an example of what this tab looks like:  
-
-<br>
-<div style="width:1000px">
-![](http://i.imgur.com/wlfDsPk.png)
-</div>
-<br>
-
-This shows us that, for example, Facility I (ID 9) has an average length of 18.54 hours of lag between when the patient visited and when the record arrived (cell C10). Note that the metric is always in hours.  
 
 ## Facility Summary
 
@@ -61,25 +43,31 @@ The function will return one .xlsx file for each facility that is in the data yo
 
 Here is an example of what the tab looks like, with information about the facility masked with "XXXXXXX":  
 
-<br>
-<div style="width:1000px">
-![](http://i.imgur.com/3YsJNrE.png)
-</div>
-<br>  
+<img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_FacInfo.PNG" alt="hi" class="inline"/> 
 
 The rows each list different summary information about the facility. Column A will list the HL7 segments that this information is taken from (the guide for these HL7 segments are found at [the CDC's NSSP data dictionary](https://www.cdc.gov/nssp/biosense/docs/NSSP-Data-Dictionary.xlsx)), while Column B lists the field name, and Column C lists the value. Note that the dates for messages represented in this file are at the bottom; the range for both when patients visited and when the records arrived to the BioSense Platform are listed.  
+### Timeliness
+
+<img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_Timeliness.PNG" alt="hi" class="inline"/>
+
 
 ### Nulls and Invalids
 
 Here is an example of what each of the nulls and invalid tabs will look like (I used invalids as an example here): 
 
-<br>
-<div style="width:1000px">
-![](http://i.imgur.com/1L8p93h.png)
-</div>
-<br>  
+<img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_Req_Null.PNG" alt="hi" class="inline"/>
 
 The HL7 segment that these fields are taken from is in Column A, Field checked is in Column B, that specific facility's counts and percents are in Columns C and D, and the statewide percent is in Column E. The invalids will include specific cases, too, where the "field" name isn't exactly the field name that comes up in the BioSense Platform. For instance, "FPID_MRN_Mismatch" is the number of times that the first patient ID did *not* match the medical record number. Similarly, "Missing_Death_Given_Discharge_Disposition" is the number of times that the discharge disposition said a patient died, but no death indicator was given.  
+
+### Batch Information
+<img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_Batch.PNG" alt="hi" class="inline"/>
+
+### Race and Ethnicity
+<img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_Race.PNG" alt="hi" class="inline"/>
+
+
+### Others
+
 
 ## Facility Examples
 
