@@ -47,18 +47,21 @@ Here is an example of what the facility information tab looks like, with informa
 <img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_FacInfo.PNG" alt="hi" class="inline"/> 
 
 The rows each list different summary information about the facility. Column 1 will list the HL7 segments that this information is taken from (the guide for these HL7 segments are found at [the CDC's NSSP data dictionary](https://www.cdc.gov/nssp/biosense/docs/NSSP-Data-Dictionary.xlsx)), while Column 2 lists the field name, and Column 3 lists the value. The dates for patient visit time represented in this file are 2018-08-10 to 2018-08-17. During these 8 days, there are 1296 visits in total and 162 visit per day on average.
-### Timeliness Report
 
+### Timeliness Report
+For each facility, we calculate the average time, in hours, between (a) when the patient visited the emergency department and (b) when the first message was recorded, and (c) when the first message was sent, and (d) when the first record for this visit arrived to the NSSP BioSense Platform for each visit. 
+
+Here is an example of the timeliness report for the earliest non NA chief complaint, the earliest non NA diagnosis code, and different types of trigger events.
 <img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_Timeliness.PNG" alt="hi" class="inline"/>
 
 
 ### Nulls and Invalids
 
-Here is an example of what each of the nulls and invalid tabs will look like (I used invalids as an example here): 
+Here is an example of what each of the nulls and invalid tabs will look like (I used invalid as an example here): 
 
-<img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_Req_Null.PNG" alt="hi" class="inline"/>
+<img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_Invalid.PNG" alt="hi" class="inline"/>
 
-The HL7 segment that these fields are taken from is in Column A, Field checked is in Column B, that specific facility's counts and percents are in Columns C and D, and the statewide percent is in Column E. The invalids will include specific cases, too, where the "field" name isn't exactly the field name that comes up in the BioSense Platform. For instance, "FPID_MRN_Mismatch" is the number of times that the first patient ID did *not* match the medical record number. Similarly, "Missing_Death_Given_Discharge_Disposition" is the number of times that the discharge disposition said a patient died, but no death indicator was given.  
+The HL7 segment that these fields are taken from is in Column 1, Field checked is in Column 2, that specific facility's counts and percents are in Columns 3 and 4, and the statewide percent is in Column 5. 
 
 ### Batch Information
 <img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_Batch.PNG" alt="hi" class="inline"/>
