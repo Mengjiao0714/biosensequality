@@ -61,28 +61,32 @@ Here is an example of what each of the nulls and invalid tabs will look like (I 
 
 <img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_Invalid.PNG" alt="hi" class="inline"/>
 
-The HL7 segment that these fields are taken from is in Column 1, Field checked is in Column 2, that specific facility's counts and percents are in Columns 3 and 4, and the statewide percent is in Column 5. 
+The HL7 segment that these fields are taken from is in Column 1, Field checked is in Column 2, that specific facility's counts and percents are in Columns 3 and 4, and the statewide percent is in Column 5. For example, there are 39 invalid inputs (3.01%) for Age_Reported while the state-average percentage is 15.43%.
 
 ### Batch Information
+The first part of the output gives the average number of messages per batch. The second part shows the number of batches per day, and the time, in hours, between the batches.
+
 <img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_Batch.PNG" alt="hi" class="inline"/>
 
 ### Race and Ethnicity
+Here is the example of count and percentage for race and ethnicity. 
+
 <img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_Race.PNG" alt="hi" class="inline"/>
 
 
 ### Others
-
+The facility summary output also provide patient locations (country, state, city, county), other patient information such as insurance company, patient class, age group, trigger event, smoking status, and discharge disposition.
 
 ## Facility Examples
 
 If you set `nexamples` as greater than zero, you will also get an .xlsx file for every single facility. This file has two tabs: invalids and nulls. I did not post a screenshot here, as there is generally a lot of visit-specific information in the columns it returns.  
 
-For the invalids tab, Column A contains the patient-visit ID number (C_BioSense_ID), Column B contains the field that is invalid, and Column C contains the entry that is invalid. If you want to know *why* it is invalid, the documentation for all of the `*_invalid` functions talk about what specifically is valid or invalid. Again, we use the PHIN VADS value sets and what we wanted for KDHE as determinants of what is invalid. This is likely to change by jurisdiction; I sacrificed some speed in the code for readability, so it should be doable to edit the code as need be for your department's specific needs.  
+For the invalids tab, Column 1 contains the patient-visit ID number (C_BioSense_ID), Column 2 contains the field that is invalid, and Column 3 contains the entry that is invalid. If you want to know *why* it is invalid, the documentation for all of the `*_invalid` functions talk about what specifically is valid or invalid. Again, we use the PHIN VADS value sets and what we wanted for KDHE as determinants of what is invalid. This is likely to change by jurisdiction; I sacrificed some speed in the code for readability, so it should be doable to edit the code as need be for your department's specific needs.  
 
-The rest of the columns (E through Q) gives you information needed to find the record and visit in question, in case the facility needs to track down what happened where in the data pipeline.  
+The rest of the columns gives you information needed to find the record and visit in question, in case the facility needs to track down what happened where in the data pipeline.  
 
-The nulls tab is almost the same. Columns A and B are the visit ID and null field, respectively; the rest of the columns (C to P) are the same columns that give you information needed to find the record and visit in question.  
+The nulls tab is almost the same. Columns 1 and 2 are the visit ID and null field, respectively; the rest of the columns are the same columns that give you information needed to find the record and visit in question.  
 
-Any questions about interpretability can be addressed to markhwhiteii@gmail.com. You can also report bugs and issues on [GitHub](https://github.com/markhwhiteii/biosensequality/issues).
+Any questions about interpretability can be addressed to wumengjiao0714@gmail.com. You can also report bugs and issues on [GitHub](https://github.com/markhwhiteii/biosensequality/issues).
 <br>
 <br>
