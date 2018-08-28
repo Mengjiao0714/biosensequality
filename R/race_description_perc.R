@@ -1,6 +1,7 @@
 ##Frequency of occurrence in data - what is actually occurring in the data and
 ##how often each distinct entry is occurring and percentage of all visits each entry
 ##accounts for. 
+## If the input is empty, say "Missing"
 ## for variable Race_Description
 
 race_description_perc<-function(data){
