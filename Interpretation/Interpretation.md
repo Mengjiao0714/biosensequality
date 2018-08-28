@@ -14,7 +14,7 @@ I will discuss each of these three documents in turn.
 
 ## State Summary
 
-This document has four different tabs: required nulls, optional nulls, invalids, and visit-arrival lag. Required and optional refers to if these fields are required to be reported or optional.  
+This document has three different tabs: required nulls, optional nulls, and invalids. Required and optional refers to if these fields are required to be reported or optional.  
 
 The exact specifics of what is needed will likely vary by jurisdiction; for this reason, I made sure to annotate the code to make it clear what I'm doing at each point of the functions.  
 
@@ -25,11 +25,11 @@ We used the [PHIN messaging guide](https://www.cdc.gov/nssp/documents/guides/syn
 Here is an example of what the nulls tabs look like:  
 <img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/State_Summary_Req_Null.PNG" alt="hi" class="inline"/>
 
-Columns A and B have the facility's name and ID number, respectively (I changed them to protect facility privacy for this document). Column C points out what type of measure is being used: the raw count of nulls? Or the percentage that are null? Columns D and on are the fields that are being checked. For instance, Column F shows us that Facility E (ID 5) did not report the age in five visits, which accounts for only about a tenth of one percent of the total visits. Rows 1 and 2 show the state counts and percents, respectively. So cell E2 shows us that—across the state—about half of the visits never included admit reason information. This is the setup for both the required and optional null tabs. The first three rows and first three columns are frozen to make it easier to navigate the page.  
+The first two columns show the facility's name and ID number, with the Feed Name and Sending Application for this facility showing next to them. Column 5 (Measures) points out what type of measure is being used: the raw count of nulls? Or the percentage that are null? Columns 6 and on are the fields that are being checked. For instance, the column named Chief_Complaint_Text shows the counts and pertanges of missing chief complaints for each of the facility. Rows 1 and 2 shaded in blue in the headline show the state counts and percents, respectively. So 742 is total NULL counts for Chief_Complaint_Text across the state, which takes about 4% of the visits. This is the setup for both the required and optional null tabs. The first three rows and first five columns are frozen to make it easier to navigate the page.  
 
 ### Invalids
 
-Invalids were determined using the [PHIN VADS value sets](https://phinvads.cdc.gov/vads/ViewView.action?name=Syndromic%20Surveillance), but also sometimes relied on our own judgment. For instance, we considered certain fields like age and temperature to be invalid if age and temperature units are missing. The precise details of these can be found by looking at the documentation for the functions ending with  `_invalid`.  
+Invalids were determined using the [PHIN VADS value sets](https://phinvads.cdc.gov/vads/ViewView.action?name=Syndromic%20Surveillance), but also sometimes relied on our own judgment. For instance, we considered certain fields like age and temperature to be invalid if age and temperature units are missing. Age of 1 year is also invalid since children under 2 years should send their ages in months. The precise details of these can be found by looking at the documentation for the functions ending with  `_invalid`.  
 
 
 The layout is the same as the null tabs, except now it it displays when fields are invalid. You may see that there are some gaps: This is to be expected. I exclude all nulls (that is, nulls are *not* considered invalid, since there is already a function that measures nulls), so if *all* examples of this field was null, then there is nothing to count! This means a denominator of zero for the percentages; a blank is just put here.  
@@ -37,16 +37,17 @@ The layout is the same as the null tabs, except now it it displays when fields a
 
 ## Facility Summary
 
-The function will return one .xlsx file for each facility that is in the data you pulled. This will have four tabs: facility information, required nulls, optional nulls, and invalids.  
+The function will return one .xlsx file for each facility that is in the data you pulled. This will have eleven tabs: facility information and timeliness report, required nulls, optional nulls, invalids, batch information, race and ethnicity, patient location,
+other patient information (insurance company, patient class, age group, etc), facility type and diagnosis code, chief complaint text, and validity of date time format.  
 
 ### Facility Information
 
-Here is an example of what the tab looks like, with information about the facility masked with "XXXXXXX":  
+Here is an example of what the facility information tab looks like, with information about Stormont-Vail:  
 
 <img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_FacInfo.PNG" alt="hi" class="inline"/> 
 
-The rows each list different summary information about the facility. Column A will list the HL7 segments that this information is taken from (the guide for these HL7 segments are found at [the CDC's NSSP data dictionary](https://www.cdc.gov/nssp/biosense/docs/NSSP-Data-Dictionary.xlsx)), while Column B lists the field name, and Column C lists the value. Note that the dates for messages represented in this file are at the bottom; the range for both when patients visited and when the records arrived to the BioSense Platform are listed.  
-### Timeliness
+The rows each list different summary information about the facility. Column 1 will list the HL7 segments that this information is taken from (the guide for these HL7 segments are found at [the CDC's NSSP data dictionary](https://www.cdc.gov/nssp/biosense/docs/NSSP-Data-Dictionary.xlsx)), while Column 2 lists the field name, and Column 3 lists the value. The dates for patient visit time represented in this file are 2018-08-10 to 2018-08-17. During these 8 days, there are 1296 visits in total and 162 visit per day on average.
+### Timeliness Report
 
 <img src="https://github.com/Mengjiao0714/biosensequality/blob/master/Interpretation/Facility_Summary_Timeliness.PNG" alt="hi" class="inline"/>
 
