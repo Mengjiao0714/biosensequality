@@ -1,4 +1,4 @@
-## check the validity of diagnosis code
+## check the validity of diagnosis code; valid diagnosis code should contain letters
 ## if the diagnosis code is non NULL, and there are only numbers (no letters), it is defined as invalid
 diagnosis_code_invalid<-function(data){
   snomed<-data%>%
